@@ -1,10 +1,7 @@
-console.log("Rock paper scissors game!");
-
 function getComputerChoice() {
     // returns a random "rock", "paper", or "scissors" (lower case)
     const choices = ["rock", "paper", "scissors"];
     ranNum = Math.floor(Math.random() * 3);
-    console.log("Computer choice = " + choices[ranNum]);
     return choices[ranNum];
 }
 
@@ -49,10 +46,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function getPlayerChoice() {
-    return prompt("Enter your choice:");
-}
-
 function getResult(result) {
     // returns 1 if win, 0 otherwise
     if(result.includes("win")){
@@ -60,27 +53,6 @@ function getResult(result) {
     }
     return 0;
 }
-
-/*
-function game() {
-    score = 0;
-    for(let i = 0; i < 5; i++) {
-        result = playRound(getPlayerChoice(), getComputerChoice());
-        score += getResult(result);
-        console.log(result + " Your current score is " + score + "!");
-        while(result.includes("tie")) {
-            result = playRound(getPlayerChoice(), getComputerChoice());
-            score += getResult(result);
-            console.log(result + " Your current score is " + score + "!");
-        }
-    }
-    if(score > 2) {
-        console.log("You win the game with a score of " + score + "!");
-    } else {
-        console.log("You lose the game with a score of " + score + "!");
-    }
-}
-*/
 
 const TOTAL_ROUNDS = 5;
 
@@ -107,36 +79,6 @@ function endGame(round) {
         return false;
     }
 }
-
-/*
-listBtns.addEventListener("click", (event) => {
-    let target = event.target;
-    let result = "";
-
-    switch(target.id) {
-        case "btnRock":
-            result = playRound("rock", getComputerChoice());
-        
-        case "btnPaper":
-            result = playRound("paper", getComputerChoice());
-        
-        case "btnScissors":
-            result = playRound("scissors", getComputerChoice());
-    }
-
-    pResult.textContent = result;
-
-    round += (result.includes("win") || result.includes("lose"));
-    score += result.includes("win");
-
-    pRound.textContent = `Round: ${round}`;
-    pScore.textContent = `Current Score: ${score}`;
-
-    if(endGame(round)) {
-        pEnd.textContent = getWinner(round, score);
-    }
-})
-*/
 
 function addBtns(event) {
     let target = event.target;
