@@ -61,9 +61,10 @@ function getResult(result) {
     return 0;
 }
 
+/*
 function game() {
     score = 0;
-    for(i = 0; i < 5; i++) {
+    for(let i = 0; i < 5; i++) {
         result = playRound(getPlayerChoice(), getComputerChoice());
         score += getResult(result);
         console.log(result + " Your current score is " + score + "!");
@@ -79,5 +80,60 @@ function game() {
         console.log("You lose the game with a score of " + score + "!");
     }
 }
+*/
+
+const TOTAL_ROUNDS = 5;
+
+const listBtns = document.querySelector("#rpsBtns");
+const pRound = document.querySelector("#round");
+const pResult = document.querySelector("#result");
+const pScore = document.querySelector("#score");
+const pEnd = document.querySelector("#end");
+let score = 0;
+let round = 0;
+
+function getWinner(round, score) {
+    if(score > round / 2) {
+        return `You scored ${score} out of a total of ${round} rounds! You win the game!`;
+    } else {
+        return `You scored ${score} out of a total of ${round} rounds! You lose the game!`;;
+    }
+}
+
+function endGame(round) {
+    if(round == TOTAL_ROUNDS) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+listBtns.addEventListener("click", (event) => {
+    let target = event.target;
+    let result = "";
+
+    switch(target.id) {
+        case "btnRock":
+            result = playRound("rock", getComputerChoice());
+        
+        case "btnPaper":
+            result = playRound("paper", getComputerChoice());
+        
+        case "btnScissors":
+            result = playRound("scissors", getComputerChoice());
+    }
+
+    pResult.textContent = result;
+
+    round += (result.includes("win") || result.includes("lose"));
+    score += result.includes("win");
+
+    pRound.textContent = `Round: ${round}`;
+    pScore.textContent = `Current Score: ${score}`;
+
+    if(endGame(round)) {
+        pEnd.textContent = getWinner(round, score);
+    }
+})
 
 game();
