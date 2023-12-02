@@ -101,13 +101,14 @@ function getWinner(round, score) {
 }
 
 function endGame(round) {
-    if(round == TOTAL_ROUNDS) {
+    if(round >= TOTAL_ROUNDS) {
         return true;
     } else {
         return false;
     }
 }
 
+/*
 listBtns.addEventListener("click", (event) => {
     let target = event.target;
     let result = "";
@@ -135,5 +136,40 @@ listBtns.addEventListener("click", (event) => {
         pEnd.textContent = getWinner(round, score);
     }
 })
+*/
+
+function addBtns(event) {
+    let target = event.target;
+    let result = "";
+
+    switch(target.id) {
+        case "btnRock":
+            result = playRound("rock", getComputerChoice());
+        
+        case "btnPaper":
+            result = playRound("paper", getComputerChoice());
+        
+        case "btnScissors":
+            result = playRound("scissors", getComputerChoice());
+    }
+
+    pResult.textContent = result;
+
+    round += (result.includes("win") || result.includes("lose"));
+    score += result.includes("win");
+
+    pRound.textContent = `Round: ${round}`;
+    pScore.textContent = `Current Score: ${score}`;
+
+    if(endGame(round)) {
+        console.log("game end");
+        pEnd.textContent = getWinner(round, score);
+        listBtns.removeEventListener("click", addBtns);
+    }
+}
+
+function game() {
+    listBtns.addEventListener("click", addBtns);
+}
 
 game();
